@@ -1,3 +1,10 @@
+//yarn add web3uikit moralis react-moralis
+
+1. Home page:
+   1. show recently listed nfts
+2. Sell page:
+   1. you can list your nft
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
