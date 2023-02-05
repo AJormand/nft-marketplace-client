@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useWeb3Contract } from "react-moralis";
+import { useWeb3Contract, useMoralis } from "react-moralis";
 import nftMarkeplaceAbi from "../constants/NftMarketplace.json";
 import basicNftAbi from "../constants/BasicNft.json";
 import Image from "next/image";
@@ -22,9 +22,12 @@ const truncateString = (fullStr, strLen) => {
 };
 
 const NFTBox = ({ price, nftAddress, tokenId, marketplaceAddress, seller }) => {
+  const { isWeb3Enabled, account } = useMoralis();
   const [imageURI, setImageURI] = useState("");
   const [tokenName, setTokenName] = useState("");
   const [tokenDescription, setTokenDescription] = useState("");
+
+  console.log(tokenId);
 
   const { runContractFunction: getTokenURI } = useWeb3Contract({
     abi: basicNftAbi,
@@ -61,7 +64,7 @@ const NFTBox = ({ price, nftAddress, tokenId, marketplaceAddress, seller }) => {
   const isOwnedByUser = seller === account || seller == undefined;
   const formattedSellerAddress = isOwnedByUser
     ? "you"
-    : truncateStr(seller || "", 15);
+    : truncateString(seller || "", 15);
 
   return (
     <div>

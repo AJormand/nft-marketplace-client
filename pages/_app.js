@@ -4,6 +4,13 @@ import { NotificationProvider } from "@web3uikit/core";
 import Header from "../components/Header";
 import Head from "next/head";
 
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  uri: "https://api.studio.thegraph.com/query/41720/nft-marketplace/v0.0.3",
+});
+
 export default function App({ Component, pageProps }) {
   return (
     <div>
@@ -14,10 +21,12 @@ export default function App({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MoralisProvider initializeOnMount={false}>
-        <NotificationProvider>
-          <Header />
-          <Component {...pageProps} />
-        </NotificationProvider>
+        <ApolloProvider client={client}>
+          <NotificationProvider>
+            <Header />
+            <Component {...pageProps} />
+          </NotificationProvider>
+        </ApolloProvider>
       </MoralisProvider>
     </div>
   );
